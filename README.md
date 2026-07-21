@@ -44,13 +44,36 @@ Fontes abertas selecionadas e carregadas no NotebookLM:
 **Pergunta feita:**
 > "Todas as fontes carregadas falam de alguma forma sobre 'prompt negativo'. Compare como o artigo de geração de imagens e a notícia da OABRJ tratam esse conceito. O que é comum e o que é específico de cada contexto?"
 
-**Resposta obtida (resumo):**
-[Cole aqui o resumo real gerado pelo NotebookLM]
+**Resposta obtida:**
+[O conceito de prompt negativo é abordado nas fontes como uma ferramenta essencial para refinar os resultados da Inteligência Artificial, embora sua aplicação varie drasticamente entre a criação visual e a análise de textos administrativos ou jurídicos.
+O que é comum entre os contextos
+Em ambos os casos, o prompt negativo é tratado como a estratégia de definir o que a IA não deve fazer ou o que deve ser removido do resultado final
+. O objetivo comum é o refinamento da qualidade, utilizando a exclusão para evitar que a ferramenta entregue resultados genéricos, ruidosos ou incorretos [5, Source 3]. Em suma, o segredo da precisão muitas vezes reside no comando de "limpar" o que não é desejado
+.
+O que é específico de cada contexto
+1. Geração de Imagens (Artigo de Dicas Técnicas)
+Neste contexto, o prompt negativo é focado na estética e na correção técnica visual:
+Finalidade: É usado para eliminar "ruídos" visuais e deformações físicas que o algoritmo costuma gerar por padrão
+.
+Elementos Excluídos: O foco está em remover marcas d'água, textos indesejados na imagem, assinaturas e defeitos anatômicos, como "olhos desalinhados", "pele de cera" ou "deformações"
+.
+Comandos Técnicos: São citados comandos específicos de ferramentas de imagem, como o parâmetro --no no Midjourney ou campos dedicados em softwares como o Stable Diffusion
+.
+2. Contexto Jurídico e Administrativo (Notícia OABRJ e IFG)
+No âmbito jurídico (OABRJ) e administrativo (IFG), o prompt negativo é uma estratégia de segurança e fidedignidade:
+Finalidade: O foco principal é a redução de alucinações, ou seja, impedir que a IA crie informações factuais falsas ou invente dados que não constam nos documentos originais [Source 3, 95].
+Critérios de Rejeição: Em processos administrativos, como os do IFG, isso se traduz em "instruções adicionais" ou "critérios de rejeição" dentro do prompt
+. Por exemplo, instruir o modelo a não adicionar explicações ou a rejeitar informações se elas não estiverem explicitamente vinculadas ao período da licença
+.
+Validação Factual: Enquanto na imagem se busca evitar uma "pele de cera", no Direito busca-se evitar que a IA mencione leis inexistentes ou interprete de forma errônea um requerimento, garantindo que o "Auditor" (LLM de validação) descarte qualquer dado não comprovado no texto original
+.
+Enquanto o artigo de imagens usa o prompt negativo para garantir a perfeição visual, a notícia da OABRJ e os estudos do IFG o utilizam para garantir a verdade factual e a conformidade legal
+.]
 
 **Fontes citadas pela IA:** [quais documentos ela usou]
 
 **O que funcionou / não funcionou:**
-[ex: a IA conseguiu comparar bem os dois contextos, mas precisei pedir explicitamente para não misturar as citações das duas fontes]
+A IA teve sucesso.
 
 ---
 
@@ -58,11 +81,37 @@ Fontes abertas selecionadas e carregadas no NotebookLM:
 **Pergunta feita:**
 > "Com base no artigo sobre Chain-of-Thought, explique a diferença entre Zero-Shot CoT e Few-Shot CoT com um exemplo prático de cada, fora do contexto médico do artigo original."
 
-**Resposta obtida (resumo):**
-[Cole aqui a resposta real]
-
-**O que funcionou / não funcionou:**
-[ex: pedir um exemplo "fora do contexto original" forçou a IA a generalizar o conceito em vez de só repetir o exemplo do texto]
+**Resposta obtida:**
+[A técnica de Chain-of-Thought (CoT), ou Cadeia de Pensamento, é uma estratégia de engenharia de prompt que incentiva os modelos de IA a "pensarem em voz alta", decompondo problemas complexos em etapas lógicas intermediárias antes de apresentarem a resposta final
+. A principal diferença entre as abordagens Zero-Shot e Few-Shot reside na forma como o modelo é instruído a realizar esse raciocínio.
+Abaixo, explico as diferenças com exemplos práticos fora do contexto médico:
+1. Zero-Shot CoT
+Nesta abordagem, não são fornecidos exemplos de resolução ao modelo
+. A instrução baseia-se puramente em comandos diretos que forçam a IA a explicar seu raciocínio
+. É a forma mais simples de usar CoT, sendo útil quando não se tem exemplos prontos ou se deseja testar a capacidade de generalização do modelo
+.
+Como funciona: Adiciona-se uma frase como "pense passo a passo" ou "explique seu raciocínio" ao comando inicial
+.
+Exemplo Prático (Logística):
+Prompt: "Um caminhão de entregas sai com 50 pacotes. Em cada uma das primeiras 3 paradas, ele deixa 5 pacotes. Na quarta parada, ele retira 10 pacotes de devolução. Quantos pacotes ele tem agora? Pense passo a passo."
+Raciocínio da IA: 1. O caminhão começou com 50 pacotes. 2. Nas 3 primeiras paradas, saíram 3 x 5 = 15 pacotes. 3. Sobraram 50 - 15 = 35 pacotes. 4. Na quarta parada, entraram mais 10 pacotes. 5. Total final: 35 + 10 = 45 pacotes.
+2. Few-Shot CoT
+Nesta técnica, o modelo recebe alguns exemplos (shots) que mostram tanto o problema quanto a sequência de passos lógicos usados para resolvê-lo antes de receber a tarefa real
+. Isso ajuda a IA a entender o formato e a profundidade de raciocínio esperados
+.
+Como funciona: Fornece-se um ou mais pares de "problema + raciocínio passo a passo" como referência
+.
+Exemplo Prático (Planejamento de Marketing):
+Prompt: "Exemplo: Se uma campanha de e-mail teve 1000 envios e uma taxa de clique de 5%, quantos cliques ela gerou? Raciocínio:
+Identificar o total de envios: 1000.
+Converter a porcentagem em decimal: 5% = 0,05.
+Multiplicar o total pelo decimal: 1000 * 0,05 = 50. Resposta: 50 cliques.
+Agora faça este: Se um post patrocinado custou R$ 500 e gerou 250 cliques, qual foi o custo por clique (CPC)?"
+A IA replicará a estrutura de passos para chegar ao resultado de R$ 2,00.
+Por que a explicação deve vir antes da solução?
+As fontes destacam que o CoT é mais eficaz quando o modelo explica o raciocínio antes de fornecer a solução final
+. Como os LLMs funcionam prevendo a próxima palavra baseada nas anteriores, gerar os passos lógicos primeiro cria um "embasamento" detalhado que torna a resposta final muito mais precisa e interpretável
+.
 
 ---
 
@@ -71,17 +120,37 @@ Fontes abertas selecionadas e carregadas no NotebookLM:
 > "Baseado nos prompts de marketing e nos prompts de geração de imagem das fontes, monte um prompt único que uma pequena empresa poderia usar para criar uma campanha de post com imagem e texto, aplicando também um prompt negativo."
 
 **Resposta obtida (resumo):**
-[Cole aqui a resposta real]
-
-**Diferença em relação aos prompts anteriores:**
-[ex: esse pedido de "síntese" obrigou o NotebookLM a combinar informações de 2 fontes diferentes em uma única resposta prática]
+Para criar uma campanha completa de post para redes sociais (texto + imagem), uma pequena empresa deve unir a fórmula de camadas de contexto da geração de imagens
+ com a especificidade estratégica dos prompts de marketing
+.
+Abaixo, apresento um prompt estruturado único que você pode adaptar para o seu negócio, seguido pela aplicação do prompt negativo para garantir a qualidade final.
+Prompt Mestre: Campanha de Post para Pequena Empresa
+"Aja como um especialista em Marketing e Diretor de Fotografia.
+PARTE 1 - O TEXTO (Marketing): Crie um post para Instagram de um <inserir seu negócio, ex: café artesanal> focado na persona <inserir seu público, ex: jovens profissionais urbanos>
+. O objetivo é educar o público sobre <inserir tema, ex: os benefícios da torra média> usando uma técnica de storytelling envolvente
+. Inclua um título chamativo que prenda a atenção e um CTA (Call to Action) persuasivo para gerar cliques
+.
+PARTE 2 - A IMAGEM (Visual): Descreva uma imagem ultra-realista para este post seguindo esta estrutura: Sujeito: <descrever o objeto, ex: uma xícara de café fumegante sobre uma mesa de madeira rústica> + Detalhes do Ambiente: <ex: grãos de café espalhados e luz solar entrando pela janela> + Tipo de Luz: Iluminação de 'Golden Hour' (luz solar suave e lateral, tons quentes)
+ + Estilo Técnico: Fotografia tirada com lente 85mm, abertura f/1.4, foco nítido no sujeito e fundo sutilmente desfocado (bokeh cinematográfico)
+.
+PARTE 3 - PROMPT NEGATIVO: Aplique os seguintes critérios de rejeição para o resultado final: Na imagem: não inclua texto, marcas d'água, assinaturas, deformações, aparência de plástico ou 'pele de cera'
+. No texto: não invente dados ou alucine informações que não foram fornecidas (não adicione explicações extras fora do contexto da marca) [Source 3, 117]."
+Por que este prompt funciona?
+Camadas de Contexto (Imagem): Em vez de pedir apenas uma "imagem bonita" (que gera resultados artificiais), o comando define elementos técnicos como a lente (85mm) e a iluminação (Golden Hour) para criar profundidade e realismo profissional
+.
+Foco em Personas e Intenção (Marketing): O prompt segue a recomendação da HubSpot de não ser genérico, vinculando o post a uma persona e a um objetivo de storytelling claro
+.
+Refinamento via Prompt Negativo:
+Contexto Visual: Remove "ruídos" comuns em IAs de imagem, como textos mal formados e texturas artificiais
+.
+Contexto Factual: Aplica o conceito jurídico/administrativo de segurança, impedindo que a IA alucine informações falsas sobre o seu produto ou negócio [Source 3, 95].
+Ao usar este comando, a IA gera tanto o planejamento do conteúdo quanto a descrição técnica visual, permitindo que a empresa mantenha a consistência da voz de marca em todos os canais
+.
 
 ---
 
 ### Dificuldades encontradas (troubleshooting)
-- [ex: como as fontes têm formatos muito diferentes (blog, notícia institucional, PDF acadêmico), o NotebookLM às vezes priorizava as fontes mais "textuais" e ignorava trechos do PDF — precisei citar o nome do TCC explicitamente no prompt]
-- [ex: pedir "cite a fonte" foi essencial para não confundir a técnica de prompt negativo do contexto de imagem com a do contexto jurídico]
-- [ex: respostas muito genéricas quando a pergunta não especificava o contexto (marketing vs. imagem vs. jurídico)]
+- A IA precisou gerenciar limitações intrínsecas discutidas nos textos.
 
 **Lição aprendida:** Quando as fontes vêm de domínios muito diferentes, é essencial nomear explicitamente qual fonte (ou contexto) você quer que a IA use — perguntas genéricas fazem o modelo "misturar" ou generalizar demais.
 
@@ -143,7 +212,7 @@ Conjunto de prompts prontos para usar em revisões futuras no NotebookLM (ou out
 
 ## ✅ Status
 - [x] Repositório criado
-- [ ] Fontes carregadas no NotebookLM
-- [ ] Prompts testados e documentados (respostas reais coladas)
-- [ ] Miniguia final revisado com base nos testes reais
-- [ ] Entrega feita na plataforma DIO
+- [x] Fontes carregadas no NotebookLM
+- [x] Prompts testados e documentados (respostas reais coladas)
+- [x] Miniguia final revisado com base nos testes reais
+- [x] Entrega feita na plataforma DIO
